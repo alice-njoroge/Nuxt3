@@ -24,6 +24,21 @@ ChartJS.register(
 //fetching data from the fake API
 type movie = { title: string, rating: number };
 const movies = ref<movie[]>([]);
+const chartOptions = {
+  responsive: true,
+  scales: {
+    x: {
+      grid: {
+        display: false // don't display the x-axis grid lines
+      }
+    },
+    y: {
+      ticks: {
+        stepSize: 1000 // display data on y-axis at intervals of 100
+      }
+    }
+  }
+}
 fetch("/api.json")
     .then(async (res) => movies.value = await res.json())
     .catch(err => console.log(err.message))
@@ -33,10 +48,16 @@ const chartData = computed(() : ChartData<"bar"> =>{
     labels: movies.value.map(movie => movie.title),
     datasets: [
       {
-        backgroundColor: ["#c82834", "#244771"],
-        data: movies.value.map(movie => movie.rating)
+        label: "Prix RBEU",
+        backgroundColor: "#5B9CD5",
+        data: movies.value.map(movie => movie.blue)
+      },
+      {
+        label: "Prix Collecte",
+        backgroundColor: "#ee7d30",
+        data: movies.value.map(movie => movie.orange)
       }
-    ]
+    ],
 
   }
 
@@ -47,11 +68,8 @@ const chartData = computed(() : ChartData<"bar"> =>{
 <template>
   <Bar v-if="movies.length"
       :data="chartData"
-      :options="{
-        plugins:{
-          legend:{display: false}
-        }
-      }"/>
+      :options="chartOptions"
+     />
 </template>
 
 <style scoped>
