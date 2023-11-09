@@ -14,5 +14,9 @@
     "nuxt": "^3.8.1",
     "vue": "^3.3.8",
     "vue-router": "^4.2.5"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.0",
+    "vue-chartjs": "^5.2.0"
   }
 }
