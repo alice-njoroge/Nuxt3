@@ -22,7 +22,7 @@ ChartJS.register(
     LinearScale)
 
 //fetching data from the fake API
-type movie = { title: string, rating: number };
+type movie = { title: string, blue: number, red: number };
 const movies = ref<movie[]>([]);
 const chartOptions = {
   responsive: true,
